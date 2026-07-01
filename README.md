@@ -42,6 +42,32 @@ Both sensors share the I2C bus (same SDA/SCL pins).
 
 ### ESP32 Firmware
 
+#### Option A: PlatformIO (recommended)
+
+The `firmware/` directory is a ready-to-use PlatformIO project (`firmware/platformio.ini`), so no manual library installation is needed — dependencies are declared in `lib_deps` and fetched automatically on first build.
+
+```bash
+# Install PlatformIO Core (skip if you use the VSCode extension instead)
+pip install platformio
+
+cd firmware
+
+# Build
+pio run
+
+# Upload to the board
+pio run -t upload
+
+# Open the serial monitor
+pio device monitor
+```
+
+By default `firmware/platformio.ini` pins `upload_port`/`monitor_port` to `/dev/ttyUSB0`. Edit those values (or comment them out to let PlatformIO auto-detect the port) to match your machine, e.g. `/dev/cu.usbserial-0001` on macOS.
+
+You can also open `firmware/` (or the provided `firmware/VL53L5CX-BNO08X-viewer.code-workspace`) in VSCode with the [PlatformIO IDE extension](https://platformio.org/install/ide?install=vscode) for build/upload/monitor buttons and debugging.
+
+#### Option B: arduino-cli
+
 ```bash
 # Install libraries
 arduino-cli lib install "SparkFun VL53L5CX Arduino Library"
